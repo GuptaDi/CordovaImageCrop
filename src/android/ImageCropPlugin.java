@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 
 import com.soundcloud.android.crop.Crop;
+import com.theartofdev.edmodo.cropper.sample.MainActivity;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -36,9 +37,10 @@ public class ImageCropPlugin extends CordovaPlugin {
           this.callbackContext = callbackContext;
 
           cordova.setActivityResultCallback(this);
-          Crop.of(this.inputUri, this.outputUri)
-                  .asSquare()
-                  .start(cordova.getActivity());
+          // Crop.of(this.inputUri, this.outputUri)
+          //         .asSquare()
+          //         .start(cordova.getActivity());
+          
           return true;
       }
       return false;

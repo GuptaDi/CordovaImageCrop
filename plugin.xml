@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
            id="cordova-plugin-ImageCrop"
-      version="1.0.4">   <name>CropPlugin</name>
+      version="1.0.4">   <name>ImageCropPlugin</name>
     <description>
         Crop an image in a Cordova app
     </description>
@@ -9,13 +9,13 @@
     <engines>
         <engine name="cordova-android" version=">=4.0.0" />
     </engines>
-    <js-module src="www/crop.js" name="CropPlugin">
-        <clobbers target="plugins.crop" />
+    <js-module src="www/imagecrop.js" name="ImageCropPlugin">
+        <clobbers target="plugins.imagecrop" />
     </js-module>
     <platform name="android">
         <!-- your configuration elements, references, source files, etc... -->
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="CropPlugin">
+            <feature name="ImageCropPlugin">
                 <param name="android-package" value="com.piyush.crop.CropPlugin" />
             </feature>
         </config-file>

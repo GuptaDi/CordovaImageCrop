@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-           id="cordova-plugin-ImageCrop"
-      version="1.0.4">   <name>ImageCropPlugin</name>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-ImageCrop" version="1.0.4">
+    <name>ImageCropPlugin</name>
     <description>
         Crop an image in a Cordova app
     </description>
@@ -16,10 +15,17 @@
         <!-- your configuration elements, references, source files, etc... -->
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="ImageCropPlugin">
-                <param name="android-package" value="com.piyush.crop.CropPlugin" />
+                <param name="android-package" value="com.piyush.crop.ImageCropPlugin" />
             </feature>
         </config-file>
         <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
         <resource-file src="cropper-release.aar" target="libs/cropper-release.aar" />
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.theartofdev.edmodo.cropper.sample.MainActivity" />
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
+        <source-file src="src/android/ImageCropPlugin.java" target-dir="src/com/piyush/crop" />
     </platform>
 </plugin>

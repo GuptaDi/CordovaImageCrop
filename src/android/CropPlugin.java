@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 
-public class CropPlugin extends CordovaPlugin {
+public class ImageCropPlugin extends CordovaPlugin {
     private CallbackContext callbackContext;
     private Uri inputUri;
     private Uri outputUri;

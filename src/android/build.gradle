@@ -7,6 +7,7 @@ repositories{
 
 dependencies {
    compile(name:'cropper-release', ext:'aar')
+   compile 'com.android.support:appcompat-v7:24.2.1'
 }
 
 android {

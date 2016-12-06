@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.os.Environment;
 
 import com.soundcloud.android.crop.Crop;
-import com.theartofdev.edmodo.cropper.sample.MainActivity;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -37,45 +38,35 @@ public class ImageCropPlugin extends CordovaPlugin {
           this.callbackContext = callbackContext;
 
           cordova.setActivityResultCallback(this);
+
+           
+        CropImage.activity(imageUri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setMultiTouchEnabled(true)
+                .start(this);
+    }
           // Crop.of(this.inputUri, this.outputUri)
           //         .asSquare()
           //         .start(cordova.getActivity());
-          
+
           return true;
       }
       return false;
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == Crop.REQUEST_CROP) {
-            if (resultCode == Activity.RESULT_OK) {
-                Uri imageUri = Crop.getOutput(intent);
-                this.callbackContext.success("file://" + imageUri.getPath() + "?" + System.currentTimeMillis());
-                this.callbackContext = null;
-            } else if (resultCode == Crop.RESULT_ERROR) {
-                try {
-                    JSONObject err = new JSONObject();
-                    err.put("message", "Error on cropping");
-                    err.put("code", String.valueOf(resultCode));
-                    this.callbackContext.error(err);
-                    this.callbackContext = null;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                try {
-                    JSONObject err = new JSONObject();
-                    err.put("message", "User cancelled");
-                    err.put("code", "userCancelled");
-                    this.callbackContext.error(err);
-                    this.callbackContext = null;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        // handle result of CropImageActivity
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                ((ImageView) findViewById(R.id.quick_start_cropped_image)).setImageURI(result.getUri());
+                Toast.makeText(this, "Cropping successful, Sample: " + result.getSampleSize(), Toast.LENGTH_LONG).show();
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Toast.makeText(this, "Cropping failed: " + result.getError(), Toast.LENGTH_LONG).show();
             }
         }
-        super.onActivityResult(requestCode, resultCode, intent);
     }
 
     private String getTempDirectoryPath() {

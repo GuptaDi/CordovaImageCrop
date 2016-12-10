@@ -10,5 +10,3 @@ module.exports.promise = function cropAsync (image, options) {
     crop(resolve, reject, image, options)
   })
 }
-
-}

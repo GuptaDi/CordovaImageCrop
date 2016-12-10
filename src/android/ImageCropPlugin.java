@@ -27,7 +27,7 @@ public class ImageCropPlugin extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
-      if (action.equals("ImageCropPlugin")) {
+      if (action.equals("cropImage")) {
           String imagePath = args.getString(0);
 
           this.inputUri = Uri.parse(imagePath);
